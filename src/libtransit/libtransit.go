@@ -56,8 +56,8 @@ func NewEnvironment(envTitle string) *Environment {
 	return e;
 }
 
-func (env *Environment) Simulate() {
-	for {
+func (env *Environment) Simulate(count int) {
+	for i := 0; i < count; i++ {
 		fmt.Println("sim");
 
 		for _, lift := range env.lifts {

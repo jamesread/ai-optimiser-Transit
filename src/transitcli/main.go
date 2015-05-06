@@ -1,19 +1,19 @@
 package main
 
 import (
-"fmt"
-"libtransit"
-"flag"
+	"fmt"
+	"libtransit"
+	goopt "github.com/droundy/goopt"
 )
 
 func main() {
-	var title = flag.String("title", "Untitled Transit System", "The title for the transit system")
-	var floorCount = flag.Int("floorCount", 5, "The number of floors")
-	var liftCount = flag.Int("liftcount", 2, "The number of lifts")
-	var simulate = flag.Bool("Simulate", false, "Start the simulation?")
+	var simulationSteps = goopt.Int([]string{"-s", "--simulationSteps"}, 0, "Simulation steps.")
+	var floorCount = goopt.Int([]string{"-f", "--floorCount"}, 5, "floor count")
+	var liftCount = goopt.Int([]string{"-l", "--liftCount"}, 2, "lift count")
+	var title = goopt.String([]string{"-t", "--title"}, "title", "title of the environment")
 
-	flag.Parse()
-
+	goopt.Parse(nil)
+		
 	env := libtransit.Environment{Title: *title}
 
 	for i := 0; i < *floorCount; i++ {
@@ -25,9 +25,7 @@ func main() {
 	}
 
 	fmt.Println("Environment: ", env.Title)
-	fmt.Println(env)
+	fmt.Printf("%+v\n", env)
 
-	if *simulate {
-		env.Simulate();
-	}
+	env.Simulate(*simulationSteps);
 }
