@@ -19,27 +19,27 @@ type lift struct {
 	people []person
 	currentFloor int
 	movingToFloor int
-	id string
+	id int
 
 	moving bool
 }
 
-func (lift) new() lift {
-	var l = lift{}
+func (lift) new() *lift {
+	var l = &lift{}
 	l.moving = false
 
 	return l;
 }
 
-func (l lift) move() {
-	fmt.Println("move()")
+func (l *lift) move() {
+	fmt.Println("lift", l.id, "move()")
 
 	l.moving = true
 
 	time.Sleep(3 * time.Second)
 	l.currentFloor++;
 
-	fmt.Println("lift is now on floor:", l.currentFloor)
+	fmt.Println("lift", l.id, "is now on floor", l.currentFloor)
 
 	l.moving = false
 }
@@ -61,6 +61,7 @@ func (env *Environment) Simulate(count int) {
 		fmt.Println("sim");
 
 		for _, lift := range env.lifts {
+			fmt.Println(lift.id)
 			if lift.moving == false {
 				go lift.move()
 			}
@@ -100,7 +101,7 @@ func (env *Environment) numFloors() int {
 }
 
 func (env *Environment) AddLift() {
-	l := lift{currentFloor: 1}
+	l := lift{currentFloor: 1, id: env.numLifts() + 1}
 
 	env.lifts = append(env.lifts, l);
 }
