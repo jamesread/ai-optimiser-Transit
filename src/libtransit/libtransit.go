@@ -56,7 +56,7 @@ func NewEnvironment(envTitle string) *Environment {
 	return e;
 }
 
-func (env *Environment) simulate() {
+func (env *Environment) Simulate() {
 	for {
 		fmt.Println("sim");
 
@@ -99,15 +99,13 @@ func (env *Environment) numFloors() int {
 	return len(env.floors)
 }
 
-func (env *Environment) addLift() {
+func (env *Environment) AddLift() {
 	l := lift{currentFloor: 1}
 
 	env.lifts = append(env.lifts, l);
 }
 
-func (env *Environment) addFloor()  {
-	fmt.Println(env)
-
+func (env *Environment) AddFloor()  {
 	f := floor{level: env.numFloors() + 1}
 
 	env.floors = append(env.floors, f);
