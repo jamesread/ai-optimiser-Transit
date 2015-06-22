@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	var simulationSteps = goopt.Int([]string{"-s", "--simulationSteps"}, 0, "Simulation steps.")
+	var simulationSteps = goopt.Int([]string{"-s", "--simulationSteps"}, 10, "Simulation steps.")
 	var floorCount = goopt.Int([]string{"-f", "--floorCount"}, 5, "floor count")
 	var liftCount = goopt.Int([]string{"-l", "--liftCount"}, 2, "lift count")
 	var title = goopt.String([]string{"-t", "--title"}, "title", "title of the environment")

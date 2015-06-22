@@ -29,4 +29,13 @@ func TestSimpleEnvironment(t *testing.T) {
 	}
 }
 
+func TestMoveLifts(t *testing.T) {
+	env := NewEnvironment("");
+	env.AddFloor();
+	l := env.AddLift();
 
+	l.move();
+
+	t.Equals(l.currentFloor, 1);
+
+}
