@@ -14,6 +14,7 @@ type person struct {
 type floor struct {
 	people []person
 	level int
+	environment *Environment
 }
 
 type lift struct {
@@ -47,10 +48,12 @@ func (l *lift) move() {
 	switch (l.movingDirection) {
 		case "up":
 			l.currentFloor++;
+			l.environment.listener.OnLiftArrived(l);
 			break
 
 		default:
 			l.currentFloor--;
+			l.environment.listener.OnLiftArrived(l);
 			break
 
 	}
@@ -60,10 +63,21 @@ func (l *lift) move() {
 	fmt.Println("lift", l.id, "is now on floor", l.currentFloor)
 }
 
+type EnvironmentListener struct {
+	environment *Environment
+}
+
+func (*EnvironmentListener) OnLiftArrived(lift *lift) {
+}
+
+func (*EnvironmentListener) OnPassengerAdded(floor *floor, person *person) {
+}
+
 type Environment struct {
 	Title string
 	floors []floor
 	lifts []lift
+	listener *EnvironmentListener
 }
 
 func NewEnvironment(envTitle string) *Environment {
@@ -140,6 +154,7 @@ func (env *Environment) AddLift() *lift {
 
 func (env *Environment) AddFloor()  {
 	f := floor{level: env.numFloors() + 1}
+	f.environment = env
 
 	env.floors = append(env.floors, f);
 }
@@ -153,4 +168,5 @@ func (f *floor) addPassenger(count int) {
 	p := person{name: "untitled"}
 
 	f.people = append(f.people, p)
+	f.environment.listener.OnPassengerAdded(f, &p);
 }
