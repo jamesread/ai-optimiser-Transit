@@ -36,6 +36,4 @@ func TestMoveLifts(t *testing.T) {
 
 	l.move();
 
-	t.Equals(l.currentFloor, 1);
-
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 	"strconv"
+	"math/rand"
 )
 
 type person struct {
@@ -86,9 +87,15 @@ func (env *Environment) Simulate(count int) {
 
 		env.RandomFloor().addPassenger(1);
 
+		env.Process();
+
 		fmt.Println(env.toString())
 		time.Sleep(1 * time.Second)
 	}
+}
+
+func (env *Environment) Process() {
+	
 }
 
 func (env *Environment) toString() string {
@@ -138,8 +145,8 @@ func (env *Environment) AddFloor()  {
 }
 
 func (env *Environment) RandomFloor() *floor {
-
-	return &env.floors[1];	
+	floorIndex := rand.Intn(len(env.floors));
+	return &env.floors[floorIndex];	
 }
 
 func (f *floor) addPassenger(count int) {

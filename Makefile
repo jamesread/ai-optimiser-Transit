@@ -1,4 +1,4 @@
-default: compile test run
+default: compile test
 
 compile:
 	go build libtransit
